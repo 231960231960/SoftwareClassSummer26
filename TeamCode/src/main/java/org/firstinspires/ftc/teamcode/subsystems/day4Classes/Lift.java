@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.day4Classes;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,13 +9,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
-public class Lift extends SubsystemBase {
+public class Lift implements Subsystem {
     // when first coding subsystems, you can leave these tuning values 0
     // (just remember that you have to tune them later on)
     public static double kP = 0, kI = 0, kD = 0;
     public static double kG = 0, kS = 0;
     public static double dampeningBand = 5;
-    public static double defaultTolerance = 3;
+    public static double onTargetTolerance = 3;
 
     private final DcMotorEx liftMotor;
     private final PIDController pid;
@@ -31,8 +31,7 @@ public class Lift extends SubsystemBase {
         pid = new PIDController(kP, kI, kD);
     }
 
-    @Override
-    public void periodic() {
+    public void update() {
         curPos = liftMotor.getCurrentPosition();
         double error = targetPos - curPos;
 
@@ -66,13 +65,16 @@ public class Lift extends SubsystemBase {
     public void setTargetPos(double target) {
         this.targetPos = target;
     }
+    public double getCurrentPos() {
+        return curPos;
+    }
 
     public void setBatteryVoltage(double batteryVoltage) {
         this.batteryVoltage = batteryVoltage;
     }
 
-    public boolean withinTolerance() {
-        return Math.abs(curPos - targetPos) < defaultTolerance;
+    public boolean onTarget() {
+        return Math.abs(curPos - targetPos) < onTargetTolerance;
     }
 
 }

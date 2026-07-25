@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.day4Classes;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
-public class Turret extends SubsystemBase {
+public class Turret implements Subsystem {
 
     // you will tune and find these values on day 2
     public static double radiansPerEncoder = 0;
@@ -42,8 +42,7 @@ public class Turret extends SubsystemBase {
         setTurretState(TurretState.OFF);
     }
 
-    @Override
-    public void periodic() {
+    public void update() {
         // updating turret angle
         // with bulk caching off, the getCurrentPosition function does a hardware call every single time
         // to minimize loop times, save the value once at the start of the update function then reuse it whenever you want

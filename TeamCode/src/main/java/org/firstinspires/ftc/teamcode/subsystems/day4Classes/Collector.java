@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems.day4Classes;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @Config
-public class Collector extends SubsystemBase {
+public class Collector implements Subsystem {
     public static double intakePower = .9;
     public static double outtakePower = -.7;
     private final DcMotorEx intakeMotor;
@@ -28,8 +29,8 @@ public class Collector extends SubsystemBase {
         setIntakeState(IntakeState.OFF);
     }
 
-    @Override
-    public void periodic() {
+
+    public void update() {
         switch(intakeState) {
             case OFF:
                 intakeMotor.setPower(0);

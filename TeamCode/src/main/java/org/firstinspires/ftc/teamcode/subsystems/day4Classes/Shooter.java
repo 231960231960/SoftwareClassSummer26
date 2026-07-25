@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems.day4Classes;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
-public class Shooter extends SubsystemBase {
+public class Shooter implements Subsystem {
     public static double kV = 0, kS = 0;
     public static double kP = 0, kI = 0, kD = 0;
 
@@ -33,8 +34,8 @@ public class Shooter extends SubsystemBase {
         setShooterState(ShooterState.OFF);
     }
 
-    @Override
-    public void periodic() {
+
+    public void update() {
         double currentVelocity = shooterMotor.getVelocity();
         pid.setPID(kP, kI, kD);
 

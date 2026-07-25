@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @Config
 public class CollectorNoCommandsExample {
-    public static double intakePower = .9;
+    public static double intakePower = .9, jammedPower = -.5;
     public static double outtakePower = -.7;
     private final DcMotorEx intakeMotor;
     private final Telemetry telemetry;
@@ -20,7 +20,6 @@ public class CollectorNoCommandsExample {
     }
     private IntakeState intakeState;
     private final ElapsedTime jammedTimer = new ElapsedTime();
-    private boolean isJammed = false;
 
     public CollectorNoCommandsExample(HardwareMap hardwareMap, Telemetry telemetry) {
         // note: there's no need to store hardwareMap as instance data
@@ -45,16 +44,14 @@ public class CollectorNoCommandsExample {
                 intakeMotor.setPower(0);
                 break;
             case INTAKE:
-                if (intakeMotor.getCurrent(CurrentUnit.MILLIAMPS) > 5000 && !isJammed) {
-                    isJammed = true;
+                if (intakeMotor.getCurrent(CurrentUnit.MILLIAMPS) > 5000) {
                     jammedTimer.reset();
+                    intakeMotor.setPower(jammedPower);
                 }
-                if (isJammed && jammedTimer.seconds() < 0.5)
-                    intakeMotor.setPower(-0.5);
-                else {
-                    isJammed = false;
+                else if (jammedTimer.seconds() < 0.5)
+                    intakeMotor.setPower(jammedPower);
+                else
                     intakeMotor.setPower(intakePower);
-                }
                 break;
             case OUTTAKE:
                 intakeMotor.setPower(outtakePower);
