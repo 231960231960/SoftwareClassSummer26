@@ -1,33 +1,24 @@
 package org.firstinspires.ftc.teamcode.FRQs;
-public class Bottle{
 
-    public double bottleAmount;
-    public double maxCapacity;
-    public double removeAm;
+public class Bottle
+{
+    private final double capacity;
+    private double amountRemaining;
 
-
-    public Bottle(double maxCapacity){
-        this.maxCapacity = maxCapacity;
-        bottleAmount = maxCapacity;
-        updateAmount(removeAm);
+    public Bottle(double capacity)
+    {
+        this.capacity = capacity;
+        amountRemaining = capacity;
     }
 
-    public double updateAmount(double removeAmount){
-       bottleAmount -= removeAmount;
-       if(bottleAmount <= maxCapacity / 4){
-           bottleAmount = maxCapacity;
-       }
+    public double updateAmount(double amountUsed)
+    {
+        amountRemaining -= amountUsed;
 
-       return bottleAmount;
+        if(amountRemaining < capacity * .25) {
+            amountRemaining = capacity;
+        }
 
+        return amountRemaining;
     }
-
-
-
-
-
-
-
-
 }
-
