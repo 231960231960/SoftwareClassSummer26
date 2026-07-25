@@ -53,7 +53,7 @@ The list of functions you have to write is:
 - armToTargetAngle - sets the Arm's target angle to the angleRad argument
 - armTo90Degrees - sets the Arm's target angle to 90 degrees (converted to radians)
 
-See utils/command/Day3CommandsListAnswerKey.java for the answer key
+See teamcode/commands/Day3CommandsListAnswerKey.java for the answer key
 
 
 When you are done: push your code to github and ensure that your repository visibility is set

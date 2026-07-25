@@ -22,6 +22,7 @@ public class Day3BrainSTEMRobotAnswerKey {
     }
 
     public void update() {
+        batteryVoltageFilter.update();
         double batteryVoltage = batteryVoltageFilter.getVoltage();
 
         /// NOTE: it is important that you first update the battery voltage for all subsystems, then call the update function
